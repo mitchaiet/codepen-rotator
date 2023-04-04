@@ -1,0 +1,48 @@
+html,
+body {
+  background: black;
+  color: #666;
+  font-size: 5vh;
+}
+.site-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-size: cover;
+}
+.site-container:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+}
+.site-container.night:before {
+  background: rgba(0,0,0,0.15);
+}
+.clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15.4em;
+}
+.letter {
+  width: 1.4em;
+  text-align: center;
+  display: block;
+  float: left;
+  text-transform: uppercase;
+  font-family: Raleway, sans-serif;
+  line-height: 1.5;
+  transition: color 2s linear;
+  color: rgba(255,255,255,0.4);
+  text-shadow: 0 0 5vh rgba(0,0,0,0.8);
+}
+.letter.is-active {
+  color: #FFF;
+}
