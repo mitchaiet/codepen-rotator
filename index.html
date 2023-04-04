@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Rotator</title>
+    <style>
+        html, body, #websiteFrame {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="websiteFrame" src="/website/0" frameborder="0"></iframe>
+    <script>
+        async function getWebsiteCount() {
+          const response = await fetch('/website-count');
+          const data = await response.json();
+          return data.count;
+        }
+
+        const iframe = document.getElementById('websiteFrame');
+        let currentWebsiteId = 0;
+        let interval = Number(localStorage.getItem('interval')) || 10000; // 10 seconds
+
+        async function updateWebsiteFrame() {
+          const websiteCount = await getWebsiteCount();
+          currentWebsiteId = (currentWebsiteId + 1) % websiteCount;
+          localStorage.setItem('currentWebsiteId', currentWebsiteId);
+          iframe.src = `/website/${currentWebsiteId}`;
+        }
+
+        (async () => {
+          setInterval(updateWebsiteFrame, interval);
+        })();
+    </script>
+</body>
+</html>

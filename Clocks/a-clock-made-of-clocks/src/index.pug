@@ -1,0 +1,19 @@
+.container
+	header
+		h1 A Clock Made Of Clocks
+	.watch-container
+		- for (i = 0; i < 4; i++)
+			.watch-circle-container(id=`watch-circle-${i}`)
+				- for(j = 0; j < 24; j++)
+					span
+	p.inspiration-text Inspired by&nbsp;
+		a(
+			href="https://twitter.com/latestengineer/status/1429761388591960065",
+			target="_top"
+		) this tweet
+	.social-container
+		a.social(href="https://twitter.com/fatihsolhann", target="_top") @fatihsolhann
+		a.social(
+			href="https://twitter.com/intent/tweet?text=a%20clock%20made%20of%20clocks.&url=https://codepen.io/solhan/pen/QWgwzmg&via=fatihsolhann",
+			target="_top"
+		) Share on twitter

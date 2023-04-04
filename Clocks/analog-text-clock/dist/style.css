@@ -1,0 +1,40 @@
+body {
+	background-color: #fcfcfc; 
+	background: #900;
+}
+
+h1, h2, h3 {
+	font-family: 'Lato', sans-serif;
+	color: white;
+	white-space: nowrap;
+
+	position: absolute;
+	line-height: 220px;
+	top: -110px;
+
+	transition: transform 0.5s ease-out;
+	transform-origin: left center 0;
+}
+
+.clock {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 220px;
+}
+
+
+.clock h1 {
+	font-size: 100px;
+	opacity: 0.4;
+}
+
+.clock h2 {
+	font-size: 75px;
+	opacity: 0.6;
+}
+
+.clock h3 {
+	font-size: 50px;
+	opacity: 0.8;
+}

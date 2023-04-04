@@ -1,0 +1,436 @@
+.tick:nth-child(1) {
+  left: 55.22642316%;
+  top: 99.72609477%;
+  transform: rotate(-6deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(2) {
+  left: 60.39558454%;
+  top: 98.90738004%;
+  transform: rotate(-12deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(3) {
+  left: 65.45084972%;
+  top: 97.55282581%;
+  transform: rotate(-18deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(4) {
+  left: 70.33683215%;
+  top: 95.67727288%;
+  transform: rotate(-24deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(5) {
+  left: 75%;
+  top: 93.30127019%;
+  transform: rotate(-30deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(6) {
+  left: 79.38926261%;
+  top: 90.45084972%;
+  transform: rotate(-36deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(7) {
+  left: 83.45653032%;
+  top: 87.15724127%;
+  transform: rotate(-42deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(8) {
+  left: 87.15724127%;
+  top: 83.45653032%;
+  transform: rotate(-48deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(9) {
+  left: 90.45084972%;
+  top: 79.38926261%;
+  transform: rotate(-54deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(10) {
+  left: 93.30127019%;
+  top: 75%;
+  transform: rotate(-60deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(11) {
+  left: 95.67727288%;
+  top: 70.33683215%;
+  transform: rotate(-66deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(12) {
+  left: 97.55282581%;
+  top: 65.45084972%;
+  transform: rotate(-72deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(13) {
+  left: 98.90738004%;
+  top: 60.39558454%;
+  transform: rotate(-78deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(14) {
+  left: 99.72609477%;
+  top: 55.22642316%;
+  transform: rotate(-84deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(15) {
+  left: 100%;
+  top: 50%;
+  transform: rotate(-90deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(16) {
+  left: 99.72609477%;
+  top: 44.77357684%;
+  transform: rotate(-96deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(17) {
+  left: 98.90738004%;
+  top: 39.60441546%;
+  transform: rotate(-102deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(18) {
+  left: 97.55282581%;
+  top: 34.54915028%;
+  transform: rotate(-108deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(19) {
+  left: 95.67727288%;
+  top: 29.66316785%;
+  transform: rotate(-114deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(20) {
+  left: 93.30127019%;
+  top: 25%;
+  transform: rotate(-120deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(21) {
+  left: 90.45084972%;
+  top: 20.61073739%;
+  transform: rotate(-126deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(22) {
+  left: 87.15724127%;
+  top: 16.54346968%;
+  transform: rotate(-132deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(23) {
+  left: 83.45653032%;
+  top: 12.84275873%;
+  transform: rotate(-138deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(24) {
+  left: 79.38926261%;
+  top: 9.54915028%;
+  transform: rotate(-144deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(25) {
+  left: 75%;
+  top: 6.69872981%;
+  transform: rotate(-150deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(26) {
+  left: 70.33683215%;
+  top: 4.32272712%;
+  transform: rotate(-156deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(27) {
+  left: 65.45084972%;
+  top: 2.44717419%;
+  transform: rotate(-162deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(28) {
+  left: 60.39558454%;
+  top: 1.09261996%;
+  transform: rotate(-168deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(29) {
+  left: 55.22642316%;
+  top: 0.27390523%;
+  transform: rotate(-174deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(30) {
+  left: 50%;
+  top: 0%;
+  transform: rotate(-180deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(31) {
+  left: 44.77357684%;
+  top: 0.27390523%;
+  transform: rotate(-186deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(32) {
+  left: 39.60441546%;
+  top: 1.09261996%;
+  transform: rotate(-192deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(33) {
+  left: 34.54915028%;
+  top: 2.44717419%;
+  transform: rotate(-198deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(34) {
+  left: 29.66316785%;
+  top: 4.32272712%;
+  transform: rotate(-204deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(35) {
+  left: 25%;
+  top: 6.69872981%;
+  transform: rotate(-210deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(36) {
+  left: 20.61073739%;
+  top: 9.54915028%;
+  transform: rotate(-216deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(37) {
+  left: 16.54346968%;
+  top: 12.84275873%;
+  transform: rotate(-222deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(38) {
+  left: 12.84275873%;
+  top: 16.54346968%;
+  transform: rotate(-228deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(39) {
+  left: 9.54915028%;
+  top: 20.61073739%;
+  transform: rotate(-234deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(40) {
+  left: 6.69872981%;
+  top: 25%;
+  transform: rotate(-240deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(41) {
+  left: 4.32272712%;
+  top: 29.66316785%;
+  transform: rotate(-246deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(42) {
+  left: 2.44717419%;
+  top: 34.54915028%;
+  transform: rotate(-252deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(43) {
+  left: 1.09261996%;
+  top: 39.60441546%;
+  transform: rotate(-258deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(44) {
+  left: 0.27390523%;
+  top: 44.77357684%;
+  transform: rotate(-264deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(45) {
+  left: 0%;
+  top: 50%;
+  transform: rotate(-270deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(46) {
+  left: 0.27390523%;
+  top: 55.22642316%;
+  transform: rotate(-276deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(47) {
+  left: 1.09261996%;
+  top: 60.39558454%;
+  transform: rotate(-282deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(48) {
+  left: 2.44717419%;
+  top: 65.45084972%;
+  transform: rotate(-288deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(49) {
+  left: 4.32272712%;
+  top: 70.33683215%;
+  transform: rotate(-294deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(50) {
+  left: 6.69872981%;
+  top: 75%;
+  transform: rotate(-300deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(51) {
+  left: 9.54915028%;
+  top: 79.38926261%;
+  transform: rotate(-306deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(52) {
+  left: 12.84275873%;
+  top: 83.45653032%;
+  transform: rotate(-312deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(53) {
+  left: 16.54346968%;
+  top: 87.15724127%;
+  transform: rotate(-318deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(54) {
+  left: 20.61073739%;
+  top: 90.45084972%;
+  transform: rotate(-324deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(55) {
+  left: 25%;
+  top: 93.30127019%;
+  transform: rotate(-330deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(56) {
+  left: 29.66316785%;
+  top: 95.67727288%;
+  transform: rotate(-336deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(57) {
+  left: 34.54915028%;
+  top: 97.55282581%;
+  transform: rotate(-342deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(58) {
+  left: 39.60441546%;
+  top: 98.90738004%;
+  transform: rotate(-348deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(59) {
+  left: 44.77357684%;
+  top: 99.72609477%;
+  transform: rotate(-354deg);
+  transform-origin: 50% 0%;
+}
+.tick:nth-child(60) {
+  left: 50%;
+  top: 100%;
+  transform: rotate(-360deg);
+  transform-origin: 50% 0%;
+}
+html,
+body {
+  background: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+.hours,
+.minutes,
+.seconds {
+  position: absolute;
+  transform-origin: center center;
+  transition: 0.5s all ease-out;
+}
+.hours {
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+}
+.minutes {
+  left: 8%;
+  top: 8%;
+  width: 84%;
+  height: 84%;
+}
+.seconds {
+  top: 16%;
+  left: 16%;
+  width: 68%;
+  height: 68%;
+}
+.clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -25vmin;
+  margin-top: -25vmin;
+  width: 50vmin;
+  height: 50vmin;
+}
+.tick {
+  position: absolute;
+  width: 2px;
+  height: 32px;
+  background: #fff;
+}
+.minutes .tick {
+  height: 24px;
+}
+.seconds .tick {
+  height: 16px;
+}
+.tick:first-child {
+  background: #0cf;
+  height: 32px;
+}
+/*.tick:nth-child(odd) {
+  height: 32px;
+}*/
+.count {
+  font-size: 4em;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  margin-left: -50vmin;
+  margin-top: -0.72em;
+  width: 100vmin;
+  height: 1em;
+}

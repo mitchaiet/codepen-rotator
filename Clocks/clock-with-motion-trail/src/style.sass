@@ -1,0 +1,159 @@
+@mixin handRotate($iteration,$iterations)
+	$frac: $iteration / $iterations
+	#{100% * $frac}
+		transform: rotate(1turn * $frac)
+
+$hue: 223
+$trailSegments: 8
+
+*
+	border: 0
+	box-sizing: border-box
+	margin: 0
+	padding: 0
+
+\:root
+	--bg: #{hsl($hue,10%,80%)}
+	--fg: #{hsl($hue,10%,10%)}
+	--primary: #{hsl($hue,90%,55%)}
+	font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320))
+
+body
+	background: var(--bg)
+	color: var(--fg)
+	font: 1em/1.5 sans-serif
+	height: 100vh
+	display: grid
+	place-items: center
+main
+	padding: 1.5em 0
+
+.clock
+	background: linear-gradient(hsl($hue,10%,90%),hsl($hue,10%,80%))
+	border-radius: 50%
+	box-shadow: 0 0.125em 0.25em hsla(0,0%,100%,0.3) inset, 0 -0.125em 0.25em hsla(0,0%,0%,0.3) inset, 0 0 0.75em hsla(0,0%,0%,0.25)
+	position: relative
+	width: 15em
+	height: 15em
+	&__ticks,
+	&__tick,
+	&__hands,
+	&__hand,
+	&__hand-trail
+		position: absolute
+	&__ticks
+		top: 0.5em
+		left: 0.5em
+		width: 14em
+		height: 14em
+	&__tick,
+	&__hand
+		background: currentColor
+	&__tick
+		$ticks: 60
+		$transY: -6.5em
+		box-shadow: 0 0 0.75em hsla(0,0%,0%,0.3)
+		bottom: 50%
+		left: calc(50% - 0.05em)
+		width: 0.1em
+		height: 0.5em
+		transform-origin: 50% 100%
+		&:nth-child(5n + 1)
+			left: calc(50% - 0.1em)
+			width: 0.2em
+			height: 1em	
+		@for $t from 1 through $ticks
+			$transYAdj: $transY
+			@if $t % 5 == 1
+				$transYAdj: $transY + 0.5
+			&:nth-child(#{$t})
+				transform: rotate(360deg/$ticks * ($t - 1)) translateY($transYAdj)
+	&__hands
+		top: 1.5em
+		left: 1.5em
+		width: 12em
+		height: 12em
+	&__hand
+		bottom: calc(50% - 1em)
+		left: calc(50% - 0.25em)
+		width: 0.5em
+		transform-origin: 50% calc(100% - 1em)
+		&--hr
+			animation: hr 86400s linear infinite
+			box-shadow: 0 0 0.25em hsla(0,0%,0%,0.5)
+			height: 4.5em
+		&--min
+			animation: min 3600s linear infinite
+			box-shadow: 0 0 0.375em hsla(0,0%,0%,0.45)
+			height: 6.5em
+		&--sec
+			animation: sec 60s cubic-bezier(0.8,0,0.2,1) infinite
+			background: var(--primary)
+			box-shadow: 0 0 0.5em hsla(0,0%,0%,0.4)
+			bottom: calc(50% - 1.5em)
+			left: calc(50% - 0.125em)
+			height: 7.5em
+			width: 0.25em
+			transform-origin: 50% calc(100% - 1.5em)
+			&:before
+				background-color: inherit
+				border-radius: 50%
+				content: ""
+				display: block
+				position: absolute
+				bottom: 1.125em
+				left: calc(50% - 0.375em)
+				width: 0.75em
+				height: 0.75em
+		&-trail
+			animation: secTrail1 1s cubic-bezier(0.8,0,0.2,1) infinite
+			background-color: inherit
+			width: 100%
+			height: 100%
+			transform-origin: inherit
+			@for $a from 2 through $trailSegments
+				&:nth-child(#{$a})
+					animation-name: secTrail#{$a}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark)
+	\:root
+		--bg: #{hsl($hue,10%,20%)}
+		--fg: #{hsl($hue,10%,90%)}
+		--primary: #{hsl($hue,90%,65%)}
+	.clock
+		background: linear-gradient(hsl($hue,10%,20%),hsl($hue,10%,10%))
+		box-shadow: 0 0.1em 0.2em hsla(0,0%,100%,0.1) inset, 0 -0.1em 0.2em hsla(0,0%,0%,0.1) inset, 0 0 0.4em hsla(0,0%,0%,0.3)
+		&__tick
+			box-shadow: 0 0 0.75em hsla(0,0%,100%,0.3)
+
+/* Animations */
+@keyframes hr
+	from
+		transform: rotate(0)
+	to
+		transform: rotate(2turn)
+@keyframes min
+	from
+		transform: rotate(0)
+	to
+		transform: rotate(1turn)
+@keyframes sec
+	@for $i from 0 through 60
+		@include handRotate($i,60)
+@for $a from 1 through $trailSegments
+	@keyframes secTrail#{$a}
+		@if $a == 1
+			0%
+				opacity: 1
+				transform: rotate(0)
+		@else
+			0%, #{100% * ($a - 1) / $trailSegments - 0.01}
+				opacity: 0
+				transform: rotate(0)
+			#{100% * ($a - 1) / $trailSegments}
+				opacity: 1
+				transform: rotate(0)
+		100%
+			opacity: 0
+			transform: rotate(1turn * -1/60 * ($trailSegments - ($a - 1)) / $trailSegments)

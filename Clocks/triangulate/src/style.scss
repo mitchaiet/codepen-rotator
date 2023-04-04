@@ -1,0 +1,61 @@
+@mixin theme($name,$c1,$c2) {
+  &.#{$name} {
+    background: $c1;
+    .f1 {
+      fill: $c2;
+    }
+    .s1 {
+      stroke: $c2;
+    }
+    .f2 {
+      fill: $c1;
+    }
+    .s2 {
+      stroke: $c1;
+    }
+  }
+}
+
+svg {
+
+  position: absolute;
+
+  width: 80vh;
+  height: 80vh;
+  max-width: 80vw;
+  max-height: 80vw;
+
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-50%,0px);
+}
+
+* {
+
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-feature-settings: 'tnum';
+  -moz-font-feature-settings: 'tnum';
+  -ms-font-feature-settings: 'tnum';
+
+  backface-visibility: hidden;
+  stroke-width: 0;
+
+}
+
+body {
+
+  background: #F3F6F7;
+  .f1 {
+    fill: #181F22;
+  }
+  .f2 {
+    fill: #F3F6F7;
+  }
+
+  @include theme(frog,#181F22,#0EF998);
+  @include theme(sol,#181F22,#F90E5A);
+  @include theme(wasp,#181F22,#FFF532);
+  @include theme(terra,#E76054,#ECF1CC);
+
+}
+

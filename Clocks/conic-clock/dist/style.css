@@ -1,0 +1,113 @@
+body {
+  display: grid;
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+}
+
+.clock {
+  position: relative;
+  width: 90vmin;
+  height: 90vmin;
+  margin: auto;
+}
+.clock:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 0.5px);
+  right: calc(50% - 0.5px);
+  bottom: 0;
+  background: linear-gradient(white, transparent, white);
+  content: "";
+}
+
+.hand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-animation: spinner 1s linear infinite;
+          animation: spinner 1s linear infinite;
+}
+@-webkit-keyframes spinner {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes spinner {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.disc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 10vmin rgba(0, 0, 0, 0.2);
+}
+
+.days {
+  -webkit-animation-duration: 31536000s;
+          animation-duration: 31536000s;
+}
+.days .disc {
+  background: conic-gradient(black 33%, #3f51b5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hours {
+  -webkit-animation-duration: 86400s;
+          animation-duration: 86400s;
+}
+.hours .disc {
+  background: conic-gradient(black 33%, #2196f3);
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+}
+
+.minutes {
+  -webkit-animation-duration: 3600s;
+          animation-duration: 3600s;
+}
+.minutes .disc {
+  background: conic-gradient(black 33%, #4caf50);
+  top: 20%;
+  left: 20%;
+  right: 20%;
+  bottom: 20%;
+}
+
+.seconds {
+  -webkit-animation-duration: 60s;
+          animation-duration: 60s;
+}
+.seconds .disc {
+  background: conic-gradient(black 33%, #ffc107);
+  top: 30%;
+  left: 30%;
+  right: 30%;
+  bottom: 30%;
+}
+
+.milliseconds {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+.milliseconds .disc {
+  background: conic-gradient(black 33%, #ff5722);
+  top: 40%;
+  left: 40%;
+  right: 40%;
+  bottom: 40%;
+}

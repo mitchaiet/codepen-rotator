@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Status</h1>
+    <p>Current time: <span id="currentTime"></span></p>
+    <p>Current website title: <span id="currentWebsiteTitle"></span></p>
+    <p>Total websites: <span id="totalWebsites"></span></p>
+    <label for="intervalSlider">Interval (ms): <span id="intervalDisplay"></span></label>
+    <input type="range" id="intervalSlider" min="1000" max="60000" value="10000" step="1000">
+    
+    <script src="/status.js"></script>
+</body>
+</html>

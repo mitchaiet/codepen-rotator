@@ -1,0 +1,18 @@
+body {
+  background-color: rgb(34, 45, 58);
+}
+.clock {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  top: 50%;
+  left: 50%;
+  margin: -32px 0 0 -32px;
+  border-radius: 10px;
+  float: left;
+  margin-right: 10px;
+  transform-origin-x: 50%;
+  transform-origin-y: 50%;
+  transform-origin-z: initial;
+  transform: scale(3,3);
+}

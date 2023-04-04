@@ -1,0 +1,18 @@
+#wrap
+	- (1..6).each do |i|
+		.block.cube0
+			- (1..27).each do |i|
+				.cube
+					- (1..2).each do |i|
+						.side
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none">
+<defs>
+
+    
+<filter id="squiggles">
+<feTurbulence id="turbulence" baseFrequency="0.03" numOctaves="3" result="noise" seed="0"/>
+<feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="4" />
+</filter>
+</defs> 
+</svg>

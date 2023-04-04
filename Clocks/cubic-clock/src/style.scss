@@ -1,0 +1,410 @@
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	--area: 3.75vmin;
+	--y: #f8e8aa;
+	--w: #fdf5f1;
+	--o: #fd4109;
+	--lb: #ade8e5;
+	--p: #479bc6;
+	--db: #222c47;
+	--z: 1;
+	--left: 0;
+	background: #479bc6;
+	overflow: hidden;
+	filter: url(#squiggles);
+	&:before {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 50%;
+		top: calc(50% + (var(--area) * 1.25));
+		left: 0;
+		backdrop-filter: blur(3px);
+		z-index: 3;
+		background: rgba(#479bc6, 0.85);
+	}
+	#wrap {
+		width: 75vmin;
+		height: 11.25vmin;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		grid-template-rows: 1fr;
+		grid-column-gap: 1.5vmin;
+		perspective: 100vmin;
+		position: relative;
+		transform: scale(0.75) translateZ(0px) translateY(-7.5vmin);
+		-webkit-box-reflect: below 15vmin;
+		* {
+			transform-style: preserve-3d;
+		}
+		.block {
+			position: relative;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(3, 1fr);
+			grid-template-areas: "col1 col2 col3" "col4 col5 col6" "col7 col8 col9";
+			z-index: 3;
+			transition: 0.3s ease-in-out;
+			&:nth-of-type(2),
+			&:nth-of-type(4) {
+				&:before,
+				&:after {
+					content: "";
+					position: absolute;
+					width: 2.5vmin;
+					height: 2.5vmin;
+					background: var(--lb);
+					border-radius: 100%;
+					left: calc(var(--area) * 3.5);
+					top: 0;
+					transform: translateZ(calc(var(--area) * -1.5)) rotateX(25deg);
+				}
+				&:after {
+					top: calc(var(--area) * 1.5);
+				}
+			}
+			* {
+				backface-visibility: hidden;
+			}
+			@for $i from 1 through 6 {
+				&:nth-of-type(#{$i}) {
+					animation: wobbling 1s ease-in-out infinite alternate #{$i/-4}s;
+				}
+			}
+			@keyframes wobbling {
+				from {
+					transform: rotateX(-25deg) translateZ(calc(var(--area) * 2))
+						scaleZ(var(--z)) translateX(var(--left));
+				}
+				to {
+					transform: rotateX(-55deg) translateZ(calc(var(--area) * 2))
+						scalez(var(--z)) translateX(var(--left));
+				}
+			}
+			&:nth-of-type(-n + 2) {
+				left: -50%;
+			}
+			&:nth-of-type(n + 5) {
+				left: 50%;
+			}
+			&:nth-of-type(5) {
+				z-index: 1;
+			}
+			&:last-of-type {
+				z-index: 0;
+			}
+			&.cube0 {
+				&:first-of-type {
+					--z: 0;
+					& ~ .block {
+						--left: -50%;
+					}
+				}
+				.cube {
+					&:nth-of-type(2),
+					&:nth-of-type(5),
+					&:nth-of-type(11),
+					&:nth-of-type(14),
+					&:nth-of-type(17),
+					&:nth-of-type(23),
+					&:nth-of-type(26) {
+						left: 100%;
+						&:nth-of-type(even) {
+							left: -100%;
+						}
+					}
+				}
+			}
+			&.cube1 {
+				.cube {
+					@for $i from 1 through 9 {
+						&:nth-of-type(#{1+(($i - 1) * 3)}) {
+							left: 100%;
+						}
+					}
+					@for $i from 1 through 9 {
+						&:nth-of-type(#{3+(($i - 1) * 3)}) {
+							left: -100%;
+						}
+					}
+				}
+			}
+			&.cube2 {
+				.cube {
+					@for $i from 5 through 6 {
+						&:nth-of-type(#{$i}),
+						&:nth-of-type(#{$i + 9}),
+						&:nth-of-type(#{$i + 18}) {
+							top: 100%;
+						}
+					}
+					&:nth-of-type(10) {
+						left: 200%;
+					}
+					&:nth-of-type(11) {
+						left: 100%;
+					}
+					&:nth-of-type(13),
+					&:nth-of-type(16) {
+						transform: translateZ(calc(var(--area) * -2));
+					}
+				}
+			}
+			&.cube3 {
+				.cube {
+					&:nth-of-type(10),
+					&:nth-of-type(4),
+					&:nth-of-type(13),
+					&:nth-of-type(16) {
+						left: 200%;
+					}
+					&:nth-of-type(11),
+					&:nth-of-type(5),
+					&:nth-of-type(14),
+					&:nth-of-type(17) {
+						left: 100%;
+					}
+				}
+			}
+			&.cube4 {
+				.cube {
+					&:nth-of-type(4),
+					&:nth-of-type(7),
+					&:nth-of-type(13),
+					&:nth-of-type(16),
+					&:nth-of-type(22),
+					&:nth-of-type(25) {
+						left: 200%;
+					}
+					&:nth-of-type(11),
+					&:nth-of-type(20),
+					&:nth-of-type(5),
+					&:nth-of-type(8),
+					&:nth-of-type(14),
+					&:nth-of-type(17),
+					&:nth-of-type(23),
+					&:nth-of-type(26) {
+						left: 100%;
+					}
+				}
+			}
+			&.cube5 {
+				.cube {
+					@for $i from 1 through 2 {
+						&:nth-of-type(#{$i + 3}) {
+							left: calc(300% - #{$i * 100%});
+						}
+					}
+					@for $i from 13 through 18 {
+						&:nth-of-type(#{$i}) {
+							transform: translateZ(calc(var(--area) * -2));
+							top: -100%;
+							&:nth-of-type(16),
+							&:nth-of-type(17),
+							&:nth-of-type(18) {
+								top: -200%;
+							}
+						}
+					}
+					&:nth-of-type(12) {
+						left: -200%;
+					}
+					&:nth-of-type(11) {
+						left: -100%;
+					}
+					&:nth-of-type(23),
+					&:nth-of-type(24),
+					&:nth-of-type(22) {
+						top: -100%;
+					}
+					&:nth-of-type(25),
+					&:nth-of-type(26),
+					&:nth-of-type(27) {
+						top: -200%;
+					}
+				}
+			}
+			&.cube6 {
+				.cube {
+					&:nth-of-type(5) {
+						left: -100%;
+					}
+					@for $i from 14 through 18 {
+						&:nth-of-type(#{$i}):not(:nth-of-type(16)) {
+							transform: translateZ(calc(var(--area) * -2));
+						}
+					}
+					&:nth-of-type(12) {
+						left: -200%;
+					}
+					&:nth-of-type(11) {
+						left: -100%;
+					}
+				}
+			}
+			&.cube7 {
+				.cube {
+					@for $i from 1 through 9 {
+						&:nth-of-type(#{($i * 3)}) {
+							left: 0;
+						}
+						&:nth-of-type(#{($i * 3) + 1}) {
+							left: 200%;
+						}
+						&:nth-of-type(#{($i * 3) + 2}) {
+							left: 100%;
+						}
+						&:nth-of-type(#{($i * 9) + 1}):nth-of-type(1n),
+						&:nth-of-type(#{($i * 9) + 2}):nth-of-type(1n) {
+							left: 0;
+						}
+					}
+					&:nth-of-type(1) {
+						left: 200%;
+					}
+					&:nth-of-type(2) {
+						left: 100%;
+					}
+					&:nth-of-type(10),
+					&:nth-of-type(11) {
+						transform: translateZ(calc(var(--area) * -2));
+					}
+				}
+			}
+			&.cube8 {
+				.cube {
+					&:nth-of-type(5) {
+						transform: translateZ(calc(var(--area) * -1.5));
+					}
+					&:nth-of-type(11) {
+						top: 200%;
+					}
+					@for $i from 25 through 27 {
+						&:nth-of-type(#{$i}) {
+							transform: translateZ(calc(var(--area) * -1));
+						}
+					}
+				}
+			}
+			&.cube9 {
+				.cube {
+					&:nth-of-type(5) {
+						transform: translateZ(calc(var(--area) * -2));
+					}
+					&:nth-of-type(11) {
+						top: 200%;
+					}
+					&:nth-of-type(4),
+					&:nth-of-type(13) {
+						left: 200%;
+					}
+					&:nth-of-type(14) {
+						left: 100%;
+					}
+					@for $i from 22 through 24 {
+						&:nth-of-type(#{$i}) {
+							top: -100%;
+						}
+					}
+					@for $i from 25 through 27 {
+						&:nth-of-type(#{$i}) {
+							transform: translateZ(calc(var(--area) * -1));
+						}
+					}
+				}
+			}
+			.cube {
+				background: var(--y);
+				position: relative;
+				transition: 0.3s ease-in-out;
+				left: 0;
+				top: 0;
+				z-index: 0;
+				@for $i from 1 through 9 {
+					&:nth-of-type(#{($i * 9) - 8}) {
+						& + .cube {
+							.side {
+								&:last-of-type {
+									box-shadow: 0 0 0 0.175vmin var(--lb);
+								}
+							}
+							& + .cube {
+								.side {
+									&:last-of-type {
+										box-shadow: 0 0 0 0.175vmin var(--lb);
+									}
+								}
+							}
+						}
+						.side {
+							&:last-of-type {
+								box-shadow: 0 0 0 0.175vmin var(--lb);
+							}
+						}
+					}
+				}
+				.side {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					&:first-of-type {
+						top: 0.15vmin;
+						left: -100%;
+						background: var(--db);
+						transform-origin: right;
+						transform: rotateY(-90deg);
+					}
+					&:last-of-type {
+						top: -100%;
+						left: 0;
+						transform-origin: bottom;
+						background: var(--lb);
+						transform: rotateX(90deg);
+					}
+					&:before {
+						content: "";
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						left: 0;
+						top: -0.05vmin;
+						background: var(--db);
+						transform: translateZ(calc((var(--area) * -1.05)));
+					}
+				}
+				backface-visibility: hidden;
+				@for $i from 1 through 9 {
+					&:nth-of-type(#{$i}) {
+						grid-area: col#{$i};
+						background: var(--y);
+						&:after {
+							content: "";
+							position: absolute;
+							width: 100%;
+							height: 100%;
+							left: 0;
+							top: 0;
+							background: var(--y);
+							box-shadow: 0 0 0 0.05vmin var(--y);
+							transform: translateZ(0.025vmin);
+						}
+					}
+					&:nth-of-type(#{$i + 9}) {
+						grid-area: col#{$i};
+						transform: translateZ(calc(var(--area) * -1));
+						background: var(--o);
+					}
+					&:nth-of-type(#{$i + 18}) {
+						grid-area: col#{$i};
+						transform: translateZ(calc(var(--area) * -2));
+						background: var(--o);
+					}
+				}
+			}
+		}
+	}
+}

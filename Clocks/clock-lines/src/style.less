@@ -1,0 +1,107 @@
+
+.mixin-tick (@n, @i: 1) when (@i <= @n) {
+  
+  .tick:nth-child(@{i}) {
+    left: 50% + (50% * sin((360deg/@n)*@i));
+    top: 50% + (50% * cos((360deg/@n)*@i));
+    transform: rotate((-360deg/@n)*@i);
+    transform-origin: 50% 0%;
+  }
+  
+  .mixin-tick(@n, @i + 1);
+  
+}
+
+.mixin-tick(60);
+
+html, body {
+  background: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.hours, .minutes, .seconds {
+  position: absolute;
+  transform-origin: center center;
+  transition: 0.5s all ease-out;
+}
+
+.hours {
+  //border-radius: 50%;
+  //border: 1px solid #fff;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+}
+
+.minutes {
+  //border-radius: 50%;
+  //border: 1px solid #fff;
+  left: 8%;
+  top: 8%;
+  width: 84%;
+  height: 84%;
+}
+
+.seconds {
+  //border-radius: 50%;
+  //border: 1px solid #fff;
+  top: 16%;
+  left: 16%;
+  width: 68%;
+  height: 68%;
+}
+
+.clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -25vmin;
+  margin-top: -25vmin;  
+  width: 50vmin;
+  height: 50vmin;
+}
+
+
+.tick {
+  position: absolute;
+  width: 2px;
+  height: 32px;
+  background: #fff;
+}
+
+.minutes .tick {
+  height: 24px;
+}
+
+.seconds .tick {
+  height: 16px;
+}
+
+.tick:first-child {
+  background: #0cf;
+  height: 32px;
+}
+
+/*.tick:nth-child(odd) {
+  height: 32px;
+}*/
+
+.count {
+  font-size: 4em;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  margin-left: -50vmin;
+  margin-top: -0.72em; // UGLY FIX
+  width: 100vmin;
+  height: 1em;
+}

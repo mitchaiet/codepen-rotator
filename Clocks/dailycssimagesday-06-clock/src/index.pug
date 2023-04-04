@@ -1,0 +1,35 @@
+.container
+  .clock
+    .side
+      .line
+    .side
+      .line
+      .glas
+        h1 clOck
+        p dailycssimages
+        .reflex
+        .t-hours
+          .tick-hour
+        .t-mins
+          .tick-min
+        .t-secs
+          .tick-sec
+        .alarm  
+      ul.secs
+        - for(var x = 0;x <= 59;x++)
+          li
+      ul.mins
+        - for(var x = 0;x <= 11;x++)
+          li
+      ul.min
+        - for(var x = 12;x > 0;x--)
+          li
+            span= x
+    .side
+      .button
+    .side
+      .line
+    .side
+      .line
+    .side
+    .shadow

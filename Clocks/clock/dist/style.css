@@ -1,0 +1,126 @@
+body, html {
+  height:100%; width:100%;
+  margin:0; padding:0;
+}
+body {
+  background:#dfd8c8;
+}
+#clock{
+  width:200px; height:200px;
+  background:#f2f2f4;
+  border-radius:13px;
+  position:absolute;
+  left:50%; top:50%;
+  margin:-100px;
+  box-shadow:
+    0 2px 0 #dfd8c8,
+    0 4px 0 #eae4d6,
+    0 5px 7px rgba(0,0,0,0.1),    
+    0 5px 1px rgba(0,0,0,0.01),
+    0 10px 2px rgba(0,0,0,0.01),
+    0 15px 3px rgba(0,0,0,0.01),
+    0 20px 4px rgba(0,0,0,0.01),
+    0 25px 5px rgba(0,0,0,0.01),
+    0 30px 6px rgba(0,0,0,0.01),
+    0 35px 7px rgba(0,0,0,0.01),
+    0 40px 8px rgba(0,0,0,0.01),
+    0 45px 9px rgba(0,0,0,0.01),
+    0 50px 10px rgba(0,0,0,0.01);   
+  background:linear-gradient(#fbfdfa 0%, #f0efed 100%);
+}
+#clock .decoration {
+  position:absolute;
+  left:25px; right:25px;
+  top:25px; bottom:25px;
+  border-radius:3px;
+  box-shadow:
+    0 2px 0 #f7f6f4,
+    0 -2px 0 #fbfbfb,
+    inset 0 5px 15px rgba(0,0,0,0.08);
+  background:linear-gradient(#e4e3e1 0%, #ebe7e4 100%);
+}
+#clock .decoration span {
+  display:block;
+  position:absolute;
+  background:#a98c6b;
+  box-shadow: 0 0px 2px rgba(0,0,0,0.2);
+  margin:-3px;
+}
+#clock .decoration .top {
+  width:6px; height:16px;
+  left:50%; top:16px;
+}
+#clock .decoration .bottom {
+  width:6px; height:16px;
+  left:50%; bottom:16px;
+}
+#clock .decoration .left {
+  width:16px; height:6px;
+  left:16px; bottom:50%;
+}
+#clock .decoration .right {
+  width:16px; height:6px;
+  right:16px; bottom:50%;
+}
+
+#clock .pointers {
+  z-index:2;
+}
+#clock .pointers span {
+  display:block;
+  position:absolute;
+  z-index:2;
+  width:100%; height:100%;
+}
+#clock .pointers span:after {
+  display:block;
+  position:absolute;
+  content:'';
+  background:#26231e;
+  width:100px; height:4px;
+  left:100px; top:100px;
+  border-radius:10px;
+}
+#clock .pointers .houre:after {
+  width:45px; height:6px;
+  margin:-3px 0 0 -10px;
+}
+#clock .pointers .minute:after {
+  width:68px; height:4px;
+  margin:-2px 0 0 -12px;
+}
+#clock .pointers .second:after {
+  width:73px; height:2px;
+  margin:-1px 0 0 -20px;
+  background:#ea593c;
+}
+#clock .pointers .second:before {
+  position:absolute;
+  content:'';
+  border-radius:10px;
+  width:6px; height:6px;
+  margin:-3px;
+  left:50%; top:50%;
+  background:#ea593c;
+}
+#clock .pointers.shadow {
+  margin-top:4px;
+  z-index:1;
+}
+#clock .pointers.shadow span {
+  z-index:1;
+}
+#clock .pointers.shadow > span:after,
+#clock .pointers.shadow > span:before {
+  background:#000 !important;
+  opacity:0.33;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+}
+
+#clock.aminate .pointers span {
+   transition:transform 1s ease;  
+}
