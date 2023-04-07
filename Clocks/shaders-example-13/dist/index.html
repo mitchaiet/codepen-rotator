@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Shaders Example #13</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class='canvas-container'></div>
+
+<script src='https://unpkg.com/three@0.99.0/build/three.min.js'></script>
+<script src='https://unpkg.com/three@0.99.0/examples/js/controls/OrbitControls.js'></script>
+<script src='https://unpkg.com/three@0.99.0/examples/js/postprocessing/EffectComposer.js'></script>
+<script src='https://unpkg.com/three@0.99.0/examples/js/postprocessing/RenderPass.js'></script>
+<script src='https://unpkg.com/three@0.99.0/examples/js/postprocessing/ShaderPass.js'></script>
+<script src='https://unpkg.com/three@0.99.0/examples/js/shaders/CopyShader.js'></script>
+<script src='https://unpkg.com/three@0.99.0/examples/js/shaders/LuminosityHighPassShader.js'></script>
+<script src='https://unpkg.com/three@0.99.0/examples/js/postprocessing/UnrealBloomPass.js'></script>
+
+
+<script id='sphere-vertex-shader' type='x-shader/x-vertex'>
+    uniform float uTime;
+    
+    varying vec3 vPosition;
+    
+    float rand(vec2);
+    float noise(vec2);
+    
+
+    void main() {
+        vec3 delta = vec3(0.0, 0.0, sin(uTime * 5.0 + position.y / 20.0));
+        
+        vec3 newPosition = position +
+            delta * noise(
+                position.xy / 10.0 +
+                5.0 * noise(
+                    vec2(
+                        sin(uTime * 0.5) + sin(uTime * 0.4) + sin(uTime * 0.3),
+                        sin(uTime * 0.5) + sin(uTime * 0.4) + sin(uTime * 0.3)
+                    )
+                )
+            ) * 4.0;
+        
+        vPosition = newPosition;
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+        gl_PointSize = 2.0;
+    }
+    
+    
+    float rand(vec2 seed) {
+        return fract(sin(dot(seed, vec2(12.9898,78.233))) * 43758.5453123);
+    }
+    
+    
+    float noise(vec2 position) {
+        vec2 block_position = floor(position);
+
+        float top_left_value     = rand(block_position);
+        float top_right_value    = rand(block_position + vec2(1.0, 0.0));
+        float bottom_left_value  = rand(block_position + vec2(0.0, 1.0));
+        float bottom_right_value = rand(block_position + vec2(1.0, 1.0));
+
+        vec2 computed_value = smoothstep(0.0, 1.0, fract(position));
+
+        return mix(top_left_value, top_right_value, computed_value.x)
+            + (bottom_left_value  - top_left_value)  * computed_value.y * (1.0 - computed_value.x)
+            + (bottom_right_value - top_right_value) * computed_value.x * computed_value.y
+            - 0.5;
+    }
+    
+
+</script>
+
+
+<script id='sphere-fragment-shader' type='x-shader/x-fragment'>
+    uniform float uTime;
+    
+    varying vec3 vPosition;
+    
+    
+    void main() {
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+    
+</script>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

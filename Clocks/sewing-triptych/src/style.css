@@ -1,0 +1,673 @@
+:root {
+  --pane-size: 16rem; 
+  --sm-pane-size: 12rem;
+  --light-gray: #eaeaea;
+  --dark-gray: #aeaeae;
+  
+  --cutting-background: forestgreen;
+  --pinning-background: #2763ab;
+  --stitching-background: lightsalmon;
+
+  /* cut pane */
+  --scissors: #fba919;
+  --scissors-shadow: #ee972c;
+  --scissor-duration: 2s;
+  
+  /* pin pane */
+  --fabric-transforms: translate(100%, 100%) scale(1);
+  --pin-url: url('https://cdn.glitch.com/48f277d5-dee5-42e5-bda5-c58e342c3f69%2Fpins.png?v=1588152807966');
+  
+  /* needle pane */
+  --thread: indianred;
+  --bottom-cloth: white;
+  --top-margin: 2rem;
+  --needle-duration: 0.5s;
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  src: url('https://cdn.glitch.com/48f277d5-dee5-42e5-bda5-c58e342c3f69%2FPacifico-Regular.ttf?v=1588152862594')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Indie Flower';
+  src: url('https://cdn.glitch.com/48f277d5-dee5-42e5-bda5-c58e342c3f69%2FIndieFlower-Regular.ttf?v=1588153122208')  format('truetype');
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Indie Flower', sans-serif;
+}
+
+body {
+  background-color: var(--light-gray);
+  height: inherit;
+  padding: 2rem 1rem;
+}
+
+.padding-class {
+    margin: 0 auto;
+    width: 90%;
+    padding: 1rem 0;
+    max-width: 60rem;
+}
+
+h1 {
+  font-family: "Pacifico";
+  font-size: 3rem;
+  color: var(--dark-gray);  
+  text-align: center;
+  border-bottom: 0.2rem dashed var(--dark-gray);
+}
+
+
+.pane {
+  display: block;
+  overflow: hidden;
+  min-width: var(--pane-size);
+  max-width: var(--pane-size);
+  min-height: var(--pane-size);
+  max-height: var(--pane-size);
+  
+  background-color: white;
+  box-shadow: 10px 10px #888888;
+  
+  font-size: 1.2rem;
+}
+
+#comic {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding-top: 2rem;
+}
+
+
+@media only screen and (max-width: 56rem) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .pane {
+    min-width: var(--sm-pane-size);
+    max-width: var(--sm-pane-size);
+    min-height: var(--sm-pane-size);
+    max-height: var(--sm-pane-size);
+  }
+}
+
+@media only screen and (max-width: 44rem) {
+  .padding-class {
+    max-width: 18rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  #comic {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .pane {
+    margin-bottom: 1.5rem;
+    min-width: var(--pane-size);
+    max-width: var(--pane-size);
+    min-height: var(--pane-size);
+    max-height: var(--pane-size);
+  }
+}
+
+
+
+/** 
+  Pane 1
+**/
+
+#pane1 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: var(--pinning-background);
+}
+
+#pane1:hover::after {
+  opacity: 1;
+}
+
+#pane1::after {
+  content: 'Spritemap';
+  display: block;
+  
+  color: #2763ab;
+  position: absolute;
+  right: 0.2rem;
+  top: 0.2rem;
+  opacity: 0;
+}
+
+#pane1 svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes turnFabric {  
+  0% {
+    transform: rotate(0deg) var(--fabric-transforms);    
+  }
+  
+  50% {
+    transform: rotate(180deg) var(--fabric-transforms);
+  }
+  
+  100% {
+    transform: rotate(360deg) var(--fabric-transforms);    
+  }
+}
+
+#pane1 .fabric {
+  width: 100%;
+  height: 100%;
+  transform: translateX(8%) translateY(-12%) rotate(300deg) scale(1.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#pins {
+  width: 90.5%;
+  min-height: 100%;
+  background-image: var(--pin-url);
+  background-position: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: pinFabric 0.85s steps(20, end) infinite;
+  
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+#pins::before {
+  content: '';
+  border-left: 2px solid var(--pinning-background);
+  position: absolute;
+  left: 0;
+  width: 2px;
+  height: 100%;
+}
+
+@keyframes pinFabric {
+  100% {
+    background-position: 99.89%;
+  }
+}
+
+
+/**
+  Pane 2
+**/
+#pane2 {
+  background-color: var(--stitching-background);
+  position: relative;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pane2:hover::after {
+  opacity: 1;
+}
+
+#pane2::after {
+  content: 'CSS only';
+  display: block;
+  
+  color: var(--stitching-background);
+  position: absolute;
+  bottom: 0.2rem;
+  right: 0.2rem;
+  opacity: 0;
+}
+
+#pane2::before {
+  content: '';
+  display: block;
+  
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background-color: var(--bottom-cloth);
+  bottom: 0;
+}
+
+#pane2 .machine-top {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1rem;
+  width: 70%;
+  background-color: var(--dark-gray);
+}
+#pane2 .machine-top::before {
+  content: '';
+  display: block;
+  position: absolute;
+  border-bottom-right-radius: 40%;
+  border-bottom-left-radius: 10%;
+  top: 0;
+  right: 0;
+  border: var(--top-margin) outset var(--dark-gray);
+  border-top: 0;
+  height: 0;
+  width: 20%;
+  background-color: var(--light-gray);
+}
+
+#stitching_group {
+  width: 100%;
+  min-height: inherit;
+  position: relative;
+  left: 0;
+  top: var(--top-margin);
+}
+
+#pane2 .stitch {
+  margin-top: 0.5rem;
+  background-color: transparent;
+  width: 4rem;
+  border-radius: 50%;
+  border: 0.2rem solid var(--thread);
+  clip-path: inset(0 0 50% 0);
+  transform-origin: center left;
+  animation: borderStitching var(--needle-duration) infinite ease-in;
+  
+  position: absolute;
+  margin-top: var(--top-margin);
+}
+
+@keyframes borderStitching {
+  0% {
+    transform: translateX(2.5rem);
+    border-radius: 0;
+    height: 0;
+    clip-path: inset(0 100% 50% 0);
+  }
+  
+  10% {
+    transform: translateX(2.4rem);
+    border-radius: 0;
+    height: 0;
+    clip-path: inset(0 99% 50% 0);
+  }
+  
+  15% {
+    width 0.2rem;
+    transform: translateX(2.4rem) scaleY(1.8);
+    border-radius: 0;
+    height: 0.5rem;
+    clip-path: inset(0 99% 52% 0);
+  }
+  
+  50% {
+    transform: translateX(0rem) scaleY(2);
+    width: 4rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    border: 0.15rem solid var(--thread);
+    border-top-right-radius: 0;
+    border-right: 0;
+    border-bottom: 0;
+    clip-path: inset(0 40% 50% 0);
+  }
+  
+  75% {
+    transform: translateX(-1.9rem) scaleY(1);
+    width: 4rem;
+    height: 1rem;
+    border-top-left-radius: 50%;
+    border: 0.2rem solid var(--thread);
+    border-right: 0;
+
+    clip-path: inset(0 0 0.35rem 0);
+  }
+  
+  90% {
+    transform: translateX(-1.9rem);
+    width: 4rem;
+    height: 0.6rem;
+    border-radius: 20%;
+    border: 0.2rem solid var(--thread);
+
+    clip-path: inset(0 0 0.35rem 0);
+  }
+  
+  100% {
+    transform: translateX(-2.2rem);
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    height: 0.5rem;
+  }
+}
+
+#pane2 .sewing-machine {
+  position: absolute;
+  top: 0;
+  animation: stitchingNeedle var(--needle-duration) infinite ease-in;
+  width: 100%;
+  height: 100%;
+  
+  display: flex;
+  justify-content: center;
+}
+
+#pane2 .sewing-machine .needle {
+  position: relative;
+  box-sizing: border-box;
+
+  width: 1rem;
+  height: 70%;
+
+  clip-path: polygon(
+    0 0,
+    0 80%,
+    50% 100%,
+    100% 80%,
+    100% 50%,
+    100% 0,
+    51% 0,
+    51% 75%,
+    62% 80%,
+    51% 85%,
+    39% 80%,
+    51% 75%,
+    51% 0
+  );
+
+}
+
+@keyframes stitchingNeedle {
+  0% {
+    transform: translateY(0.2rem) scaleY(1.1);
+  }
+  
+  50% {
+    transform: translateY(-3.2rem);
+  }
+  
+  75% {
+    transform: translateY(-1.5rem);
+  }
+  
+  90% {
+    transform: translateY(-0.5rem);
+  }
+  
+  100% {
+    transform: translateY(0.2rem) scaleY(1.1);
+  }
+}
+
+#pane2 .needle-left-half {
+  position: absolute;
+  left: 0;
+  
+  background-color: var(--dark-gray);
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+}
+
+#pane2 .needle-right-half {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  
+  height: 100%;
+  width: 50%;
+  
+  background-color: var(--light-gray);
+}
+
+#pane2 .sewing-machine .top-thread {
+  position: absolute;
+  margin-left: -0.15rem;
+  top: -0.4rem;
+  height: 60%;
+  width: 1.4rem;
+  border: 0.2rem solid var(--thread);
+  border-bottom-right-radius: 50%;
+  border-top: 0;
+  border-left: 0;
+  clip-path: inset(0 0 0 54%);
+  animation: topThread var(--needle-duration) infinite ease-in;
+}
+
+@keyframes topThread {
+  0% {
+    width: 1.4rem;
+    border-bottom-right-radius: 50%;
+  }
+  
+  50% {
+    width: 2.5rem;
+    border-bottom-right-radius: 40%;
+  }
+  
+  90% {
+    width: 1.5rem;
+    border-bottom-right-radius: 50%;
+    clip-path: inset(0 0 0 48%);
+
+  }
+}
+
+.bottom-cloth {
+  position: absolute;
+  left: 0;
+  bottom: 0.25rem;
+  width: 100%;
+  height: 50%;
+}
+
+.bottom-cloth::before {
+  content: '';
+  display: block;
+  height: 0.5rem;
+  width: 50%;
+  background-image: 
+    linear-gradient(
+      0.25turn,
+      var(--thread),
+      var(--thread) 4rem,
+      transparent 4rem
+    );
+  background-size: 12rem 0.25rem;
+  background-position: 4rem;
+  background-repeat: repeat-x;
+  animation: stitchline var(--needle-duration) infinite ease-out;
+}
+
+@keyframes stitchline {
+  0% {
+      background-position: 4rem;
+  }
+  
+  50% {
+      background-position: 0rem;
+  }
+  
+  100% {
+      background-position: -4rem;
+  }
+}
+
+.bottom-cloth::after {
+  content: '';
+  display: block;
+  
+  width: 100%;
+  height: 49%;
+  bottom: 0;
+  
+  animation: stitchingHole var(--needle-duration) infinite ease-in;
+}
+
+@keyframes stitchingHole {
+  0% {
+    background-image: radial-gradient(
+      ellipse at 50% 0%,
+      transparent,
+      transparent 0.45rem,
+      #c45d49 0.55rem,
+      var(--bottom-cloth) 0.55rem);
+  }
+  20% {
+      background-image: radial-gradient(
+      ellipse at 50% 0%,
+      transparent,
+      transparent 0.15rem,
+      #c45d49 0.35rem,
+      var(--bottom-cloth) 0.35rem);          
+  }
+  30% {
+    background-image: radial-gradient(
+      ellipse at 50% 0%,
+      transparent,
+      transparent 0.1rem,
+      #c45d49 0.15rem,
+      var(--bottom-cloth) 0.15rem); 
+  }
+  50% {
+    background-image: none;
+  }
+  70% {
+     background-image: radial-gradient(
+      ellipse at 50% 0%,
+      transparent,
+      transparent 0.15rem,
+      #c45d49 0.2rem,
+      var(--bottom-cloth) 0.2rem); 
+  }
+  80% {
+    background-image: radial-gradient(
+      ellipse at 50% 0%,
+      transparent,
+      transparent 0.25rem,
+      #c45d49 0.35rem,
+      var(--bottom-cloth) 0.35rem); 
+  }
+  
+  90% {
+        background-image: radial-gradient(
+        ellipse at 50% 0%,
+        transparent,
+        transparent 0.35rem,
+        #c45d49 0.45rem,
+        var(--bottom-cloth) 0.45rem);
+  }
+  100% {
+      background-image: radial-gradient(
+        ellipse at 50% 0%,
+        transparent,
+        transparent 0.4rem,
+        #c45d49 0.5rem,
+        var(--bottom-cloth) 0.5rem);
+  }
+}
+
+/**
+ * Pane 3
+**/
+  
+#pane3 {
+  display: flex;
+  justify-content: center;
+  background-color: var(--cutting-background);
+  position: relative;
+}
+
+#pane3:hover::before {
+  opacity: 1;
+}
+
+#pane3::before {
+  content: 'SVG';
+  display: block;
+  
+  color: var(--cutting-background);
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  opacity: 0;
+}
+
+#pane3 svg {
+  width: 100%;
+}
+
+#pane3 #fringe {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 20%;
+  width: 2rem;
+  fill: white;
+/*   transform-origin: center; */
+  transform: translateX(-140%) translateY(-13%) rotateX(30deg) rotateY(-20deg) scale(0.8);
+}
+
+#pane3 #scissors {
+  transform-origin: center;
+  transform: rotateZ(-65deg) translateX(-25%) translateY(15%);
+}
+
+#pane3 #scissors #upper_half {
+  transform-origin: 40% center;
+  transform: rotate(-20deg);
+  animation: topScissor var(--scissor-duration) infinite ease-out;
+}
+
+#pane3 #scissors #lower_half {
+  transform-origin: 40% center;
+  transform: rotate(20deg);
+  animation: bottomScissor var(--scissor-duration) infinite ease-out;
+}
+
+@keyframes bottomScissor {
+  0%, 50% {
+     transform: rotate(20deg);
+  }
+  
+  25% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes topScissor {
+  0%, 50% {
+     transform: rotate(-20deg);
+  }
+  
+  25% {
+    transform: rotate(0);
+  }
+}
+
+.cls-1 { fill: none; }
+.cls-2 { fill: var(--light-gray); }
+.cls-3 { fill: var(--dark-gray); }
+.cls-4 { fill: var(--scissors-shadow); }
+.cls-5 { fill: var(--scissors); }
+.cls-6 { fill: var(--light-gray); }
+
+
+
+
+
+
