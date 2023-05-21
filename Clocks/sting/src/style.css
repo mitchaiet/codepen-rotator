@@ -1,0 +1,213 @@
+body {
+  --speed: 2s;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(120deg, #f5f5f5 50%, #ccc);
+}
+
+.container {
+  width: 70vmin;
+  height: 70vmin;
+  position: relative;
+}
+
+.blade {
+  --next-hue-index: calc(var(--index) + 1);
+  --hue: calc(240 + 20 * var(--index));
+  --next-hue: calc(240 + 20 * var(--next-hue-index));
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 5%;
+  height: 50%;
+  border-radius: 0% 100%;
+  transform:
+    translateX(-50%)
+    rotate(calc(72deg * var(--index)))
+    translateY(96%);
+  transform-origin: bottom center;
+  animation:
+    spin var(--speed) linear infinite,
+    jump var(--speed) infinite,
+    shadow
+      calc(var(--speed) * 8)
+      calc(var(--index) * var(--speed) / 20)
+      linear
+      infinite;
+}
+
+.blade:nth-child(1) {
+  --index: 0;
+}
+
+.blade:nth-child(2) {
+  --index: 1;
+}
+
+.blade:nth-child(3) {
+  --index: 2;
+}
+
+.blade:nth-child(4) {
+  --index: 3;
+}
+
+.blade:nth-child(5) {
+  --index: 4;
+  --next-hue-index: 0;
+}
+
+@keyframes spin {
+  to {
+    transform:
+      translateX(-50%)
+      rotate(calc(72deg * (var(--index) + 1)))
+      translateY(96%);
+  }
+}
+
+@keyframes jump {
+  30% {
+    transform:
+      translateX(-50%)
+      rotate(calc(72deg * (var(--index) + 1)))
+      translateY(98%);
+  }
+}
+
+@keyframes shadow {
+  33% {
+    box-shadow:
+      1.5vmin 0 0 -1.2vmin
+      hsla(var(--hue), 50%, 50%, 0.25);
+  }
+  82% {
+    box-shadow:
+      1.5vmin 0 0 -1.2vmin
+      hsla(var(--hue), 50%, 50%, 0.75);
+  }
+  from, 32%, 34%, 81%, 83%, to {
+    box-shadow: none;
+  }
+}
+
+.blade::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500%;
+  height: 100%;
+  border-radius: 100% 30%;
+  border-right:
+    1px solid hsla(var(--hue), 50%, 50%, 0.5);
+  transform: rotate(.15turn);
+  opacity: 0;
+  animation:
+    appear calc(var(--speed) * 2) infinite,
+    wire calc(var(--speed) * 4) infinite;
+}
+
+@keyframes appear {
+  15% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+}
+
+@keyframes wire {
+  25% {
+    transform: scale(1.5) rotate(.75turn);
+  }
+  50%, 100% {
+    transform: scale(1) rotate(.15turn);
+  }
+  75% {
+    transform: scale(2) rotate(1turn);
+  }
+}
+
+.segment {
+  position: absolute;
+  width: calc(100% - var(--seg-depth) * 25%);
+  height: 62%;
+  left: 50%;
+  bottom: 100%;
+  transform:
+    translateX(-50%)
+    rotate(calc(16deg * var(--seg-depth)));
+  transform-origin: bottom center;
+  background: hsl(
+    var(--hue),
+    calc(50% + 6% * var(--seg-depth)),
+    calc(50% - 6% * var(--seg-depth))
+  );
+  border-radius: 20% 80% / 40% 30%;
+  animation:
+    hue var(--speed) linear infinite,
+    sting var(--speed) infinite;
+}
+
+.segment::after,
+.segment::before {
+  content: "";
+  position: absolute;
+  width: 36%;
+  height: 90%;
+  border-radius: 40% 60% / 50% 50%;
+}
+
+.segment::after {
+  top: 0;
+  left: 0;
+  background:
+    linear-gradient(to bottom, #fff3, transparent);
+}
+
+.segment::before {
+  bottom: 0;
+  right: 0;
+  background:
+    linear-gradient(to top, #0003, transparent);
+}
+
+.segment {
+  --seg-depth: 0;
+}
+
+.segment > .segment {
+  --seg-depth: 1;
+}
+
+.segment > .segment > .segment {
+  --seg-depth: 2;
+}
+
+.segment > .segment > .segment > .segment {
+  --seg-depth: 3;
+}
+
+@keyframes hue {
+  to {
+    background: hsl(
+      var(--next-hue),
+      calc(50% + 6% * var(--seg-depth)),
+      calc(50% + 12% * var(--seg-depth))
+    );
+  }
+}
+
+@keyframes sting {
+  40% {
+    transform:
+      translateX(-50%)
+      rotate(calc(48deg * var(--seg-depth)))
+      scale(1.2, 0.9);
+  }
+}

@@ -1,0 +1,74 @@
+@font-face {
+  font-family: "Mona Sans";
+  src: url("https://assets.codepen.io/64/Mona-Sans.woff2") format("woff2 supports variations"), url("https://assets.codepen.io/64/Mona-Sans.woff2") format("woff2-variations");
+  font-weight: 100 1000;
+}
+@layer properties {
+  @property --rotation {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+  }
+}
+:root {
+  --debug: 1;
+  --bg-background: hsl(0deg 0% 8%);
+  --polygon: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  --size: 300px;
+  --rotation: 0;
+  --offset: 10px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: calc(var(--debug) * 1px) dotted hsl(calc(var(--debug) * 10 * 1deg), 60%, 60%);
+}
+
+html,
+body,
+main {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-background);
+  font-family: "Mona Sans", sans-serif;
+}
+body main {
+  display: grid;
+  place-items: center;
+}
+body main div.outer {
+  width: var(--size);
+  aspect-ratio: 1/0.9;
+  background: conic-gradient(from calc(var(--rotation)*1deg), black, black, hsl(calc(var(--rotation)*1deg), 100%, 70%));
+  display: grid;
+  place-items: center;
+  clip-path: var(--polygon);
+  animation: rotate 2s ease-in-out infinite;
+  position: relative;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+body main div.inner {
+  width: calc(100% - var(--offset));
+  aspect-ratio: 1/0.9;
+  background: var(--bg-background);
+  clip-path: var(--polygon);
+}
+
+@keyframes rotate {
+  from {
+    --rotation: 90;
+  }
+  to {
+    --rotation: 450;
+  }
+}

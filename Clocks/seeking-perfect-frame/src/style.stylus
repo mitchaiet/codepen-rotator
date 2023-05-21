@@ -1,0 +1,273 @@
+$wc= 85vmin
+$hc= 85vmin
+$fact= 0.97
+$zbody= -10
+$zcanvas= 30
+$zcanvas2= 40
+$z-ba= -10
+$z-b1= 6
+$z-b2= 3
+$z-b2-2= -30
+$z-b2-3= 10
+$z-b3= 6
+$z-b3-2= 14
+$z-b4= 6
+$z-b4-2=-16
+$z-b5= 6
+$z-b5-2= 18
+$z-b6= -6
+$z-b6-2= 18
+
+$cbmove= cubic-bezier(0.021,.31,0.010,.20)
+$cbmove2= cubic-bezier(0.01,4.31,0.01,-4.20)
+$cbmove3= cubic-bezier(0.06,5.21,0.06,-3.20)
+$cbmove4= cubic-bezier(0.01,.11,0.1,.20)
+$cbmove5= cubic-bezier(0.05,-9.21,1.00,5.20)
+$cbmove6= cubic-bezier(0.90,-2.31,1.00,3.20)
+ 
+
+$1=34s
+$d1=0s
+//$d1=0s
+
+$2=$1*2
+$d2=6s
+//$2=0s
+//$d2=0s
+
+$3=$1*2.4
+$d3=0s
+//$3=0s
+//$d3=0s
+
+$4=$1
+$d4=7s
+//$4=0s
+//$d4=0s
+
+$5=$1*1.8
+$d5=9s
+//$5=0s
+//$d5=0s
+
+$6=$1*1.9
+$d6=8s
+//$6=0s
+//$d6=0s
+
+$c=.2s
+$dc=$1*1.3
+
+
+html,body
+  background linear-gradient(45deg,hsl(244,100%,50%),hsl(67, 94%, 51%))
+  background-position 100% 200%
+  background-repeat repeat
+  position absolute
+  //filter contrast(1.1)
+  top 0
+  left 0
+  z-index $zbody
+  width 100vw
+  height 100vh
+  mix-blend-mode difference
+  overflow hidden
+
+canvas
+  cursor pointer
+  width $wc !important
+  height $hc !important
+  display block
+  z-index $zcanvas 
+  position absolute
+  top 50%
+  left 50%
+  transform translate(-50%,-50%) rotate(45deg) scale(0.7)
+  filter contrast(1.3) hue-rotate(120deg)
+  mix-blend-mode screen
+  animation: moo $c $dc 1 linear forwards , mood $c $dc*3 1 linear forwards
+  
+@keyframes moo
+    100%
+     transform translate(-50%,-50%) rotate(0deg) scale(0.65)
+     filter contrast(1.3) hue-rotate(120deg)
+     mix-blend-mode lighter
+     z-index $zcanvas2 
+    
+@keyframes mood
+    100%
+     transform translate(-50%,-50%) rotate(45deg) scale(0.43)
+     filter contrast(1.3) hue-rotate(120deg)
+     mix-blend-mode lighter
+     z-index $zcanvas2      
+     
+.ba 
+    display block
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%,-50%) rotate(0deg)
+    width $wc*$fact
+    height $hc*$fact
+    background-image paint(rough-painter)
+    mix-blend-mode xor
+    z-index $z-ba
+    filter contrast(1.2) invert(0)
+    animation: moor $c $dc $cbmoor 1 forwards
+    //@media screen and (max-width 450px)
+      //max-width 300px
+      //max-height 300px
+   
+      
+.box1 
+      --rough-fill hsla(354,100%,50%,1)
+      --rough-hachure-angle 50
+      opacity 0
+      z-index $z-b1
+      mix-blend-mode exclusion
+      animation: move  $1 $d1 $cbmove infinite alternate    
+@keyframes move
+    0%,20%
+      opacity 0
+    40%,70%
+      opacity 1     
+    90%,100%
+      opacity 0
+      
+.box2 
+      --rough-border-width 7
+      --rough-border-color hsla(180,100%,50%,1)
+      --rough-fill hsla(30,100%,50%,1)
+      --rough-hachure-gap 5
+      --rough-fill-style zigzag
+      mix-blend-mode color
+      z-index $z-b2
+      opacity 0
+      animation: move2 $2 $d2 $cbmove2 infinite alternate     
+@keyframes move2
+    0%
+      opacity 0
+    60%
+      --rough-border-width 16
+      --rough-border-color hsla(180,100%,50%,1)
+      --rough-fill hsla(30,100%,50%,1)
+      --rough-hachure-gap 5
+      --rough-fill-style zigzag
+      mix-blend-mode xor
+      z-index $z-b2-2
+      opacity 1
+      display inline-block      
+    70%
+      mix-blend-mode multiply
+      --rough-border-width 62
+      --rough-hachure-gap 8
+      z-index $z-b2
+      //filter invert(0) contrast(1.32)
+     
+    80%,100%
+      opacity 0
+      z-index z-index $z-b2-3      
+           
+.box3 
+      display inline-block
+      --rough-border-width 5
+      --rough-border-color yellow
+      --rough-fill yellow
+      --rough-hachure-gap 12
+      --rough-fill-style dots
+      mix-blend-mode color-dodge
+      z-index $z-b3
+      opacity 0
+      animation: move3 $3 $d3 $cbmove3 infinite alternate     
+@keyframes move3
+    0%
+      opacity 0
+    10%
+      opacity 1
+      mix-blend-mode color-dodge
+      z-index $z-b3-2
+    40%,70%
+      opacity 0
+      mix-blend-mode screen    
+    90%,100%
+      opacity 1 
+      z-index $z-b3
+           
+.box4 
+     --rough-border-width 116
+     --rough-border-color blue
+     opacity 0
+     animation: move4 $4 $d4 $cbmove4 infinite alternate 
+     z-index $z-b4
+@keyframes move4
+    0%
+      opacity 0
+    20%,60%
+      z-index $z-b4-2
+      opacity 1
+      display inline-block
+      mix-blend-mode difference
+      --rough-border-width 32
+      --rough-border-color red
+      --rough-hachure-gap 5
+      filter invert(1) contrast(1.32)
+     
+    70%,100%
+      opacity 0
+      display none
+      mix-blend-mode normal
+      z-index $z-b4
+      --rough-border-width 62
+      --rough-hachure-gap 8
+      filter invert(0) contrast(1.32)
+     
+    70%,100%
+      opacity 0
+      display none
+       --rough-border-color blue
+       --rough-border-width 126
+      z-index 30
+    
+.box5 
+    --rough-border-width 7
+    --rough-border-color yellow
+    --rough-fill yellow
+    --rough-hachure-gap 18
+    --rough-fill-style zigzag
+    mix-blend-mode exclusion
+    z-index $z-b5
+    opacity 0
+    animation: move5 $5 $d5 $cbmove5  infinite alternate
+@keyframes move5
+    0%,50%
+      opacity 0     
+    70%,80%
+      opacity 1
+      z-index $z-b5-2
+      mix-blend-mode difference
+    90%,100%
+      opacity 0
+      z-index $z-b5
+         
+      
+.box6 
+      --rough-border-width 127
+      --rough-border-color deeppink
+      --rough-fill deeppink
+      --rough-roughness 1.5
+      mix-blend-mode color-dodge
+      filter contrast(1.5) invert(0)
+      z-index $z-b6
+      opacity 0
+      animation: move6 $6 $d6 $cbmove6 infinite alternate     
+@keyframes move6
+    0%,40%
+      opacity 0
+    60%,70%
+      opacity 1
+      z-index $z-b6-2 
+      mix-blend-mode difference
+    90%,100%
+      opacity 0
+      z-index $z-
+      mix-blend-mode color-dodge

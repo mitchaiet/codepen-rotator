@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Pure CSS morphing polyhedra: dodecahedron → rhombicosidodecahedron → snub dodecahedron  → rhombicosidodecahedron → icosahedron</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- 3D assembly-->
+<!-- I don't really like this structure, but until this-->
+<!-- https://twitter.com/bramus/status/1612755463384317957-->
+<!-- is cross-browser...-->
+<main class="scene" role="img" aria-label="Polyhedral morphing animation. We start from a regular dodecahedron, a regulat polyhedron (Platonic solid) with 12 faces, all of them regular pentagons, three such faces meeting at each of its 20 vertices. We pull these pentagonal faces outwards thus opening equilateral triangles at each of the 20 vertices - the three triangle vertices coincide with the vertices of the three pentagons formerly meeting a th dodecahedron vertex where we now have these triangular openings. Pulling the pentagonal faces outwards also opens up 30 rectangles along the 30 edges of the original dodecahedron. When all the newly opened triangles and rectangles have all edges equal to the ege length of the original dodecahedron, we have obtained a rhombicosidodecahedron - an Archimedean solid with 12 regular pentagon faces, 30 square faces and 20 equilateral triangle faces. Wi twist the pentagons and the triangles, thus breaking the squares in between along their diagonals, such that they each split into two triangles not in the same anymore. Originally right triangles, these newly created triangles morph into equilateral ones with just the right twist of the other faces. We now have a shape with 12 regular pentagon faces and 80 equilateral triangle faces - this is the snub dodecahedron, another of the 13 Archimedean solids. We twist back to the rhombicosidodecahedron, then continue twisting in the opposite direction of the original twist, getting the other snub dodecahedron variation, obtained by twisting the other way. W go back once more to the rhombicosidodecahedron and then we start to uniformly shrink the pentagonal faces and shrink the squae faces along the other direction - not the one along which we expanded them from the edges of the original dodecahedron. When the 12 regular pentagons have shrunk to a point and the 30 squares to lines between the 20 triangles remaining at full size, we have obtained an incosahedron, a regular polyhedron with 20 equilateral triangle faces (as many as the number of regular dodecahedron vertices), meeting five at each of the 12 vertices (as many as the number of regular dodecahedron faces). This is the dual of the initial polyhedron.">
+  <div class="a3d" aria-hidden="true">
+    <div class="s3d p5">
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+      <div class="pos s2d s3gon"></div>
+    </div>
+    <div class="s3d a5">
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+      <div class="pos s2d s4gon"></div>
+    </div>
+    <div class="s3d p4">
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+      <div class="pos">
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s3gon morph"></div>
+        <div class="s2d s5gon"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- partial -->
+  
+</body>
+</html>

@@ -1,0 +1,338 @@
+@use 'sass:math';
+
+// get base (central & vertex angle)
+@function get-ba($n) { @return 360deg/$n }
+@function get-va($n) { @return ($n - 2)*180deg/$n }
+
+// get circumradius & inradius
+@function get-rc($ba, $l) { @return .5*$l/math.sin(.5*$ba) }
+@function get-ri($ba, $l) { @return .5*$l/math.tan(.5*$ba) }
+
+// get height & diagonals
+@function get-ht($rc, $ri, $n) { @return $ri + if($n%2 > 0, $rc, $ri) }
+@function get-dg($rc, $ba, $o: 1) { @return 2*$rc*math.sin(.5*($o + 1)*$ba) }
+
+// get cathetus when knowing hypotenuse & other cathetus
+@function get-ct($a, $b, $u: 1vmin) {
+	@return math.sqrt(math.pow($a/$u, 2) - math.pow($b/$u, 2))*$u
+}
+
+// get vertex coordinates
+@function get-vx($n: 3) {
+	$ba: 360deg/$n;
+	$oa: -90deg + (($n - 1)%2)*.5*$ba;
+	$vx: ();
+	
+	@for $i from 0 to $n {
+		$ca: $i*$ba + $oa;
+		$vx: $vx, 50%*(1 + math.cos($ca)) 50%*(1 + math.sin($ca))
+	}
+	
+	@return $vx
+}
+
+// general polyhedron data
+$l: 17.5vmin; // edge length
+$c: hsl(341deg, 72%, 32%) hsl(171deg, 39%, 34%) hsl(28deg, 85%, 55%); // palette
+$a-max: .85;
+$t: 12s;
+
+// 2D regular shape data
+// △
+$n3gon: 3; // number of vertices (= number of eges)
+$ba3gon: get-ba($n3gon); // base angle
+$rc3gon: get-rc($ba3gon, $l); // circumradius
+$ri3gon: get-ri($ba3gon, $l); // inradius
+$ht3gon: get-ht($rc3gon, $ri3gon, $n3gon); // height
+
+// ◻
+$n4gon: 4; // number of vertices (= number of eges)
+$ba4gon: get-ba($n4gon); // base angle
+$rc4gon: get-rc($ba4gon, $l); // circumradius
+$ri4gon: get-ri($ba4gon, $l); // circumradius
+
+// ⬠
+$n5gon: 5; // number of vertices (= number of eges)
+$ba5gon: get-ba($n5gon); // base angle
+$va5gon: get-va($n5gon); // vertex angle
+$rc5gon: get-rc($ba5gon, $l); // circumradius
+$ri5gon: get-ri($ba5gon, $l); // inradius
+$dg5gon: get-dg($rc5gon, $ba5gon); // diagonal
+$ht5gon: get-ht($rc5gon, $ri5gon, $n5gon); // height
+// height parts as split by a perpendicular diagonal:
+$hs5gon: $l*math.cos(.5*$va5gon); // short part of height
+$hl5gon: $ht5gon - $hs5gon; // long part of height
+
+// ===== 3D convex uniform shape data =====
+// 4th Platonic solid: regular (⬠) dodecahedron (P4)
+$nfp4: 12; // nunmber of P4 faces
+$lup4: $dg5gon; // edge length of ⬠ made by face diagonals
+$rup4: get-rc($ba5gon, $lup4); // circumradius of above ⬠
+$axp4: math.asin(($ri5gon - $rup4)/$ht5gon); // angle of petal rotation w.r.t. vertical
+$hsp4: $hl5gon*math.cos($axp4); // short part of P4 height between 2 opposing faces
+$hlp4: $ht5gon*math.cos($axp4); // long part of P4 height between 2 opposing faces
+// radii
+$rip4: .5*($hlp4 + $hsp4); // P4 inradius
+$rcp4: math.hypot($rip4, $rc5gon); // P4 circumradius
+$rmp4: math.hypot($rip4, $ri5gon); // P4 midradius
+
+// 5th Platonic solid: regular icosahedron (P5)
+$nfp5: 20; // number of P5 faces
+$hep5: get-ct($ht3gon, $ri5gon); // height of ⬠ pyramids (Py5) at P5 ends
+$hmp5: get-ct($ht3gon, $rc5gon - $ri5gon); // height of ⬠ antiprism (Ap5) in P5 middle
+// P5 face angles w.r.t. vertical (making up Py5 & Ap5)
+$axp5: math.asin($ri5gon/$ht3gon) math.asin(($rc5gon - $ri5gon)/$ht3gon);
+// radii
+$rcp5: .5*(2*$hep5 + $hmp5); // P5 circumradius
+$rip5: get-ct($rcp5, $rc3gon); // P5 inradius
+$rmp5: math.hypot($rip5, $ri3gon); // P5 midradius
+
+// number of edges for both 4th & 5th Platonic solids
+$ne: 30;
+
+// 5th Archimedean solid: (small) rhombicosidodecahedron (A5)
+$nf3a5: $nfp5; // number of △ faces = number of P5 faces
+$nf4a5: $ne; // number of ◻ faces = number of edges for P4 = number of edges for P5
+$nf3a5: $nfp4; // number of ⬠ faces = number of P4 faces
+// A5 ◻ face angles w.r.t. vertical
+$ax4a5: math.asin($rip4/$rmp4) math.asin(($rc5gon - $rup4)/$l);
+// A5 ◻ rotation in own plane
+$az4a5: math.acos(($ht5gon - $hl5gon)*math.cos($axp4)/$l);
+// distances from shape A5 middle to faces & vertices
+$dz5a5: $rcp5 + $rip4; // distance to A5 ⬠ faces
+$rca5: math.hypot($dz5a5, $rc5gon); // A5 circumradius
+$dz3a5: get-ct($rca5, $rc3gon); // distance to A5 △ faces
+$dz4a5: get-ct($rca5, $rc4gon); // distance to A5 ◻ faces
+$ax3a5: 180deg - math.atan($dz4a5/$ri4gon) - math.atan($dz5a5/$ri5gon);
+
+// 8th Archimedean solid: snub dodecahedron (A8)
+$rca8: 2.15583737*$l; // A8 circumradius
+$dz3a8: get-ct($rca8, $rc3gon); // distance to A8 △ faces
+$dz5a8: get-ct($rca8, $rc5gon); // distance to A8 ⬠ faces
+// A8 rotation of △ relative to ⬠ they share an edge with
+$ax3a8: 180deg - math.atan($dz3a8/$ri3gon) - math.atan($dz5a8/$ri5gon);
+$az3a8: -19.4deg;
+$az5a8: 13.05deg;
+
+// scaling factors
+$fp5: math.sqrt($rcp4/$rcp5);
+$fa5: math.sqrt($rcp4/$rca5);
+$fa8: math.sqrt($rcp4/$rca8);
+
+html, body, main, div { display: grid }
+
+html { height: 100% }
+
+body { background: #1e1e1e }
+
+.scene {
+	perspective-origin: calc(50% + #{$l}) calc(50% - #{$l});
+	perspective: 57em
+}
+
+div {
+	grid-area: 1/ 1;
+	place-self: center;
+	transform-style: preserve-3d
+}
+
+.a3d {
+	animation: r 5*$t linear infinite
+}
+
+@keyframes r { to { transform: rotatey(1turn) } }
+
+.s3d {
+	animation: f $t cubic-bezier(.5, -1, .5, 2) infinite alternate
+}
+
+@keyframes f {
+	0%, 5% {
+		transform: none
+	}
+	10%, 20%, 45%, 55%, 80%, 90% {
+		transform: scale3d($fa5, $fa5, $fa5)
+	}
+	30%, 40%, 60%, 70% {
+		transform: scale3d($fa8, $fa8, $fa8)
+	}
+	95%, 100% {
+		transform: scale3d($fp5, $fp5, $fp5)
+	}
+}
+
+.pos {
+	--p: 0; /* part (half) of shape (up vs. down) parity flag */
+	--not-p: calc(1 - var(--p)); /* negation (complementary) */
+	--sgn-p: calc(2*var(--p) - 1); /* sign: -1 if p is 0, 1 if p is 1 */
+	
+	--m: 0; /* middle of shape flag (0 if end, 1 if middle) */
+	--not-m: calc(1 - var(--m)); /* negation (complementary) */
+	
+	--v: 0; /* vertical positioning flag */
+	--not-v: calc(1 - var(--v)); /* negation (complementary) */
+	
+	/* y axis rotation relative offset */
+	--off-j: calc(var(--p, 0)*.5 + var(--v, 0)*.25);
+	
+	/* default x rotation value: P4 face value */
+	--rot-x: calc(var(--sgn-p)*(var(--m)*#{$axp4} + var(--not-m)*90deg));
+	/* default z rotation value: P4 face value */
+	--rot-z: calc((var(--p)*var(--not-m) + var(--not-p)*var(--m))*.5turn);
+	/* default z translation value: P4 face value */
+	--mov-z-p4: #{$rip4};
+	--mov-z-a5: #{$dz5a5};
+	--mov-z-a8: #{$dz5a8};
+	--rot-z-a8: #{$az5a8};
+	
+	/* face gradient stop list */
+	--slist: hsla(0, 0%, 100%, .65), hsla(0, 0%, 100%, 0);
+	
+	/* rotate in 3D so that its normal is in final position */
+	--dir: 
+		rotatey(calc((var(--j, 0) + var(--off-j, 0))*#{$ba5gon})) 
+		rotatex(var(--rot-x, 0deg)) 
+		rotatez(var(--rot-z, 0deg));
+	transform: 
+		var(--dir) 
+		translatez(var(--mov-z-a5)) 
+		rotate(var(--rot-z-a5, 0deg))
+		scale(var(--dim-a5, 1));
+	color: nth($c, 1);
+	animation: s $t infinite alternate;
+}
+
+.s2d {
+	--a: 1;
+	--not-a: calc(1 - var(--a));
+	filter: 
+		drop-shadow(0 0 1px #000) 
+		opacity(.85);
+	
+	&::after {
+		padding: var(--rc);
+		background: 
+			radial-gradient(var(--rg, #{unquote('closest-side, ')}) var(--slist))
+			currentcolor;
+		clip-path: polygon(var(--vx));
+		content: ''
+	}
+}
+
+
+@keyframes s {
+	0%, 5% { /* P4 */
+		transform: var(--dir) 
+			translatez(var(--mov-z-p4)) scale(var(--dim-p4, 1))
+	}
+	10%, 20%, 45%, 55%, 80%, 90% { /* A5 */
+		transform: var(--dir) 
+			translatez(var(--mov-z-a5, #{$dz5a5}))
+	}
+	30%, 40% { /* A8, version #1 */
+		transform: var(--dir) 
+			translatez(var(--mov-z-a8)) rotate(var(--rot-z-a8))
+	}
+	60%, 70% { /* A8, version #2  */
+		transform: var(--dir) 
+			translatez(var(--mov-z-a8)) rotate(calc(-1*var(--rot-z-a8)))
+	}
+	95%, 100% { /* P5 */
+		transform: var(--dir) 
+			translatez(var(--mov-z-p5, #{$rcp5})) scale(var(--dim-p5, 0))
+	}
+}
+
+@keyframes m {
+	0%, 20%, 45%, 48% { /* P4, A5, along 1st diag */
+		transform: var(--ini) rotatex($ax3a5) scaley($l/$ht3gon) skewx(-30deg);
+	}
+	52%, 55%, 80%, 100% { /* P5, A5, along 2nd diag */
+		transform: var(--ini) rotatex($ax3a5) scaley($l/$ht3gon) skewx(30deg);
+	}
+	30%, 40%, 60%, 70% { /* A8 */
+		transform: var(--ini) rotatex($ax3a8);
+	}
+}
+
+@keyframes a {
+	0%, 13.5%, 48%, 52%, 86.5%, 100% {
+		opacity: calc(#{$a-max}*var(--a))
+	}
+	16.5%, 45%, 55%, 83.5% {
+		opacity: calc(#{$a-max}*var(--not-a))
+	}
+}
+
+.s3gon {
+	--rc: #{$rc3gon};
+	--vx: #{get-vx(3)};
+	
+	&:not(.morph) {
+		--rot-x: calc(var(--sgn-p)*(var(--not-m)*#{nth($axp5, 1)} + var(--m)*#{nth($axp5, 2)}));
+		--rot-z: calc((var(--not-m)*var(--not-p) + var(--m)*var(--p))*.5turn);
+		--mov-z-p4: #{$rcp4};
+		--mov-z-p5: #{$rip5};
+		--mov-z-a5: #{$dz3a5};
+		--mov-z-a8: #{$dz3a8};
+		--rot-z-a8: #{$az3a8};
+		--dim-p4: 0;
+		--dim-a5: 1;
+		--dim-p5: 1;
+		color: nth($c, 2)
+	}
+	
+	&.morph {
+		--a: 0;
+		--ini: 
+			translatey(#{-1*$ri3gon}) 
+			rotatez(calc((var(--k) + .5)*#{$ba5gon})) 
+			translatey(#{-1*$ri5gon});
+		transform-origin: 50% $ht3gon;
+		transform: 
+			var(--ini)
+			rotatex($ax3a8);
+		animation: m $t cubic-bezier(.2,0,.27,1) infinite alternate;
+		animation-name: a, m;
+		
+		&::after {
+			//background-image: linear-gradient(var(--slist))
+		}
+	}
+}
+
+.s4gon {
+	--rc: #{$rc4gon};
+	--vx: #{get-vx(4)};
+	--rot-x: calc(-1*var(--not-v)*var(--sgn-p)*(var(--not-m)*#{nth($ax4a5, 1)} + var(--m)*#{nth($ax4a5, 2)}));
+	--rot-z: calc(-1*var(--sgn-p)*var(--v)*#{$az4a5} + var(--not-v)*var(--not-m)*90deg);
+	--mov-z-p4: #{$rmp4};
+	--mov-z-p5: #{$rmp5};
+	--mov-z-a5: #{$dz4a5};
+	--dim-p4: 0, 1;
+	--dim-p5: 1, 0;
+	--rg: #{unquote(' ')};
+	animation-name: s, a
+}
+
+.s5gon {
+	--rc: #{$rc5gon};
+	--vx: #{get-vx(5)};
+	color: nth($c, 3)
+}
+
+@for $i from 0 to $n5gon {
+	.pos.s2d:nth-child(#{$n5gon}n + #{$i + 1}), 
+	.pos:not(.s2d):nth-child(#{.5*$nfp4}n + #{$i + 1}) { --j: #{$i} }
+	.morph:nth-child(#{$n5gon}n + #{$i + 1}) { --k: #{$i} }
+}
+
+.p5 .pos:nth-child(n + #{.5*$nfp5 + 1}), 
+.a5 .pos:nth-child(n + #{.5*$ne + 1}), 
+.p4 .pos:nth-child(n + #{.5*$nfp4 + 1}) { --p: 1 }
+
+.pos.s3gon:nth-child(n + #{$n5gon + 1}):nth-child(-n + #{$nfp5 - $n5gon}), 
+.s4gon:nth-child(n + #{$n5gon + 1}):nth-child(-n + #{$ne - $n5gon}), 
+.pos:not(.s2d):not(:nth-child(#{.5*$nfp4}n)) { --m: 1 }
+
+.s4gon:nth-child(n + #{2*$n5gon + 1}):nth-child(-n + #{$ne - 2*$n5gon}) { --v: 1 }

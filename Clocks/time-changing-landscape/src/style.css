@@ -1,0 +1,109 @@
+@import url(https://fonts.googleapis.com/css?family=Wire+One);
+@import url(https://fonts.googleapis.com/css?family=Lato:300);
+
+body{
+	margin: 0;
+	background: #036;
+	font: 70px "Wire One";
+	transition: 10s ease;
+}
+.cont {
+	width: 100%;
+	height: 350px;
+	display: block;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+.sky{
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: relative;
+	z-index: 2;
+	top: 0;
+	background: linear-gradient(#036, #17b,#2cb);
+	transition: 10s ease;
+}
+.sky-dawn{
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: relative;
+	z-index: 2;
+	top: 0;
+	background: linear-gradient(#78d, #a8d,#eeb);
+	opacity:0;
+	transition: 10s ease;
+}
+.sky-day{
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: relative;
+	z-index: 2;
+	top: 0;
+	background: linear-gradient(#1bf,#6df,#bfe);
+	opacity:0;
+	transition: 10s ease;
+}
+.show{
+	opacity: 1;	
+}
+
+.foreground{
+	position: relative;
+	z-index: 10;
+	fill: #036;
+}
+.trees{
+	transition: 10s ease;
+}
+.hills{
+	transition: 10s ease;
+}
+
+#clock{
+	width: 300px;
+	margin: auto;
+	display: block;
+	position: relative;
+	z-index: 20;
+	color: #ee7;
+	text-align: center;
+	text-shadow: 0 0 2px #efd;
+	transition: 1s ease;
+}
+.text{
+	width: 80%;
+	display: block;
+	position: relative;
+	z-index: 30;
+	margin: 30% auto 0 auto;
+	text-align: center;
+	clear: both;
+	transition: 1s ease;
+}
+.text h1{
+	font-size: 40px;
+	letter-spacing: 2px;
+	color: #efa;
+}
+.text p {
+	margin-top: 50px;
+	font: 17px Lato;
+	color: #ffd;
+	letter-spacing: 1px;
+}
+
+@media screen and (max-width: 480px) {
+	body {
+		font-size: 50px;
+	}
+	.text h1{
+		font-size: 30px;
+	}
+	.text p{
+		font-size: 15px;
+	}
+}

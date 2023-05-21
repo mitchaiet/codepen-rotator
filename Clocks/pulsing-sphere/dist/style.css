@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+*, *::before, *::after {
+  padding: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+:root {
+  --pi: 3.1415926536;
+}
+
+body {
+  font-family: "Dancing Script", cursive;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  perspective: 1800px;
+}
+body *:not(:empty) {
+  transform-style: preserve-3d;
+}
+
+.text {
+  position: fixed;
+  left: 1em;
+  top: 1em;
+  color: #777;
+  font-size: 24px;
+}
+
+.ball {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  cursor: move;
+  -webkit-animation: ball 20s infinite linear paused;
+          animation: ball 20s infinite linear paused;
+}
+@-webkit-keyframes ball {
+  from {
+    transform: rotateX(-30deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(330deg) rotateZ(360deg);
+  }
+}
+@keyframes ball {
+  from {
+    transform: rotateX(-30deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(330deg) rotateZ(360deg);
+  }
+}
+.ball:hover {
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+
+.disk {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #0002;
+  -webkit-animation: disk 10s var(--delay) infinite ease-in-out;
+          animation: disk 10s var(--delay) infinite ease-in-out;
+}
+.disk:nth-child(1) {
+  --delay: 0s;
+}
+.disk:nth-child(2) {
+  --delay: -1s;
+}
+.disk:nth-child(3) {
+  --delay: -2s;
+}
+.disk:nth-child(4) {
+  --delay: -3s;
+}
+.disk:nth-child(5) {
+  --delay: -4s;
+}
+.disk:nth-child(6) {
+  --delay: -5s;
+}
+.disk:nth-child(7) {
+  --delay: -6s;
+}
+.disk:nth-child(8) {
+  --delay: -7s;
+}
+.disk:nth-child(9) {
+  --delay: -8s;
+}
+.disk:nth-child(10) {
+  --delay: -9s;
+}
+
+@-webkit-keyframes disk {
+  0% {
+    transform: rotateX(90deg) scale(0) translateZ(200px);
+    background-color: #1d182f;
+  }
+  10% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.1))) translateZ(calc(cos(var(--pi) * 0.1) * 200px));
+    background-color: #251c47;
+  }
+  20% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.2))) translateZ(calc(cos(var(--pi) * 0.2) * 200px));
+    background-color: #332765;
+  }
+  30% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.3))) translateZ(calc(cos(var(--pi) * 0.3) * 200px));
+    background-color: #134697;
+  }
+  40% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.4))) translateZ(calc(cos(var(--pi) * 0.4) * 200px));
+    background-color: #1c5ba8;
+  }
+  50% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.5))) translateZ(calc(cos(var(--pi) * 0.5) * 200px));
+    background-color: #4b6eb0;
+  }
+  60% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.6))) translateZ(calc(cos(var(--pi) * 0.6) * 200px));
+    background-color: #908bbf;
+  }
+  70% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.7))) translateZ(calc(cos(var(--pi) * 0.7) * 200px));
+    background-color: #c3abd1;
+  }
+  80% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.8))) translateZ(calc(cos(var(--pi) * 0.8) * 200px));
+    background-color: #c6c8de;
+  }
+  90% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.9))) translateZ(calc(cos(var(--pi) * 0.9) * 200px));
+    background-color: #e8ecf7;
+  }
+  100% {
+    transform: rotateX(90deg) scale(0) translateZ(-200px);
+    background-color: #e8ecf7;
+  }
+}
+
+@keyframes disk {
+  0% {
+    transform: rotateX(90deg) scale(0) translateZ(200px);
+    background-color: #1d182f;
+  }
+  10% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.1))) translateZ(calc(cos(var(--pi) * 0.1) * 200px));
+    background-color: #251c47;
+  }
+  20% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.2))) translateZ(calc(cos(var(--pi) * 0.2) * 200px));
+    background-color: #332765;
+  }
+  30% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.3))) translateZ(calc(cos(var(--pi) * 0.3) * 200px));
+    background-color: #134697;
+  }
+  40% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.4))) translateZ(calc(cos(var(--pi) * 0.4) * 200px));
+    background-color: #1c5ba8;
+  }
+  50% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.5))) translateZ(calc(cos(var(--pi) * 0.5) * 200px));
+    background-color: #4b6eb0;
+  }
+  60% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.6))) translateZ(calc(cos(var(--pi) * 0.6) * 200px));
+    background-color: #908bbf;
+  }
+  70% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.7))) translateZ(calc(cos(var(--pi) * 0.7) * 200px));
+    background-color: #c3abd1;
+  }
+  80% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.8))) translateZ(calc(cos(var(--pi) * 0.8) * 200px));
+    background-color: #c6c8de;
+  }
+  90% {
+    transform: rotateX(90deg) scale(calc(sin(var(--pi) * 0.9))) translateZ(calc(cos(var(--pi) * 0.9) * 200px));
+    background-color: #e8ecf7;
+  }
+  100% {
+    transform: rotateX(90deg) scale(0) translateZ(-200px);
+    background-color: #e8ecf7;
+  }
+}

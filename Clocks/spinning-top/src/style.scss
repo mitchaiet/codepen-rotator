@@ -1,0 +1,164 @@
+$circles: 25;
+$radius: 40vmin;
+$size: 50vmin;
+$size-border: $size * 0.05;
+$size-gap: $size * 0.25;
+$size-ring: $size + $size-border + $size-gap;
+
+$border: $size-border solid;
+
+$colors: (#440a67, #93329e, #b4aee8, #ffe3fe);
+$colors-length: length($colors);
+
+$alpha-circle: 0.5;
+$alpha-ring: 0.75;
+
+$time: $circles * 0.5s;
+$delay: $time / ($circles - 1);
+$time-scene: $time * 1.5;
+$time-circles: $time * 2;
+
+$animation-circle: circle $time var(--delay, 0s) infinite linear;
+
+@function index-modulo($index, $length) {
+	@return $index % $length + 1;
+}
+
+@function colors-list($colors, $step, $length: $colors-length) {
+	@return (
+		nth($colors, index-modulo($step, $length)),
+		nth($colors, index-modulo($step + 1, $length)),
+		nth($colors, index-modulo($step + 2, $length)),
+		nth($colors, index-modulo($step + 3, $length))
+	);
+}
+
+@mixin createCircles($n) {
+	@for $i from 0 to $n {
+		$index: $i + 1;
+		$colors-list: colors-list($colors, $i);
+
+		> *:nth-child(#{$index}) {
+			--delay: #{$delay * $i};
+
+			&::before {
+				background: conic-gradient($colors-list...);
+			}
+
+			&::after {
+				border-top-color: #{nth($colors-list, 1)};
+				border-right-color: #{nth($colors-list, 2)};
+				border-bottom-color: #{nth($colors-list, 3)};
+				border-left-color: #{nth($colors-list, 4)};
+			}
+		}
+	}
+}
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+}
+
+body {
+	display: grid;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	background: #000;
+	perspective: 400vmin;
+}
+
+.scene,
+.circles {
+	display: grid;
+	place-self: center;
+	transform-style: preserve-3d;
+}
+
+.scene {
+	transform: rotatex(105deg);
+	animation: scene $time-scene $time ease-in-out infinite alternate;
+}
+
+.circles {
+	@include createCircles($circles);
+
+	animation: circles $time-circles $time ease-in-out infinite alternate;
+}
+
+.circle {
+	display: grid;
+
+	&,
+	&::after,
+	&::before {
+		place-self: center;
+		position: absolute;
+		border-radius: 50%;
+		transform-style: preserve-3d;
+	}
+
+	&::after,
+	&::before {
+		content: "";
+	}
+
+	&::before {
+		height: $size;
+		width: $size;
+		opacity: $alpha-circle;
+		transform: translatez($radius) scale(0);
+		animation: $animation-circle;
+	}
+
+	&::after {
+		height: $size-ring;
+		width: $size-ring;
+		border: $border;
+		opacity: $alpha-ring;
+		transform: translatez(-$radius) scale(0);
+		animation: $animation-circle reverse;
+	}
+}
+
+@keyframes scene {
+	0%,
+	15% {
+		transform: rotatex(105deg);
+	}
+	85%,
+	100% {
+		transform: rotatex(255deg);
+	}
+}
+
+@keyframes circles {
+	0%,
+	50%,
+	100% {
+		transform: rotatey(0);
+	}
+	25% {
+		transform: rotatey(-22.5deg);
+	}
+	75% {
+		transform: rotatey(22.5deg);
+	}
+}
+
+@keyframes circle {
+	0% {
+		transform: scale(0) translatez($radius) rotatez(0);
+	}
+	50% {
+		transform: scale(1) translatez(0) rotatez(180deg);
+	}
+	100% {
+		transform: scale(0) translatez(-$radius) rotatez(360deg);
+	}
+}

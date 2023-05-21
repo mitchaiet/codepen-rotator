@@ -1,0 +1,19 @@
+body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+#frame-count {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+
+canvas {
+  width: clamp(200px, 80vmin, 600px);
+  height: clamp(200px, 80vmin, 600px);
+}

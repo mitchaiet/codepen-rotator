@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Sunbather </title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="shader"></div>
+<script id="vertex" type="x-shader/x-vertex">
+	varying vec2 vUv;
+uniform float uTime;
+
+attribute vec3 position2;
+varying vec3 pos;
+	uniform float u_progress;
+	varying float size;
+
+void coswarp(inout vec3 trip, float warpsScale ){
+
+    trip.xyz += warpsScale * .1 * cos(3. * trip.yzx + (uTime * .015));
+    trip.xyz += warpsScale * .05 * cos(11. * trip.yzx + (uTime * .015));
+    trip.xyz += warpsScale * .025 * cos(17. * trip.yzx + (uTime * .015));
+    
+  }  
+
+   
+
+  void main(){
+    vec4 modelPosition = modelMatrix * vec4(position, 1.);
+
+
+
+// 		modelPosition.z += sin(uTime + length(modelPosition.xy)) * 2.;
+		
+			modelPosition.x +=  mix( cos(uTime + length(modelPosition.yz)) * 4., sin(uTime + length(modelPosition.xy)) * 4., sin(uTime + modelPosition.y)) ;
+		
+				// modelPosition.y += sin(uTime + length(modelPosition.xz)) * 4.;
+
+
+    vec4 modelPosition2 = modelMatrix * vec4(position, 1.);
+
+   
+
+    vec4 viewPosition = viewMatrix * modelPosition;
+    vec4 projectionPosition = projectionMatrix * viewPosition;
+  
+    gl_Position = projectionPosition;
+    
+
+    
+ gl_PointSize = 250.;
+
+    gl_PointSize *= (1.0/ -viewPosition.z);
+
+    vUv = uv;
+    pos = modelPosition.xyz;
+		size = gl_PointSize;
+              }
+</script>
+
+<script id="fragment" type="x-shader/x-fragment">
+	uniform float uTime;
+
+varying vec2 vUv;
+uniform vec2 uResolution;
+varying vec3 pos;
+const float PI = 3.1415926535897932384626433832795;
+varying float size;
+
+  
+vec2 rotate2D (vec2 _st, float _angle) {
+    _st -= 0.5;
+    _st =  mat2(cos(_angle),-sin(_angle),
+                sin(_angle),cos(_angle)) * _st;
+    _st += 0.5;
+    return _st;
+
+}
+
+void coswarp(inout vec3 trip, float warpsScale ){
+
+  trip.xyz += warpsScale * .1 * sin(3. * trip.yzx + (uTime * .15));
+  trip.xyz += warpsScale * .05 * sin(uTime * trip.yzx + (uTime * .15));
+  trip.xyz += warpsScale * .025 * sin(17. * trip.yzx + (uTime * .15));
+  
+}  
+
+void uvRipple(inout vec2 uv, float intensity){
+
+vec2 p = uv -.5;
+
+
+  float cLength=length(p);
+
+   uv= uv +(p/cLength)*cos(cLength*15.0-uTime*.5)*intensity;
+
+} 
+
+
+
+vec3 shape( in vec2 p, float sides ,float size)
+{
+  
+   float d = 0.0;
+  vec2 st = p *2.-1.;
+
+  // Number of sides of your shape
+  float N = sides ;
+
+  // Angle and radius from the current pixel
+  float a = atan(st.x,st.y)+PI ;
+  float r = (2.* PI)/(N) ;
+
+  // Shaping function that modulate the distance
+  d = cos(floor(.5+a/r)*r-a)*length(st);
+  
+
+  return  vec3(1.0-smoothstep(size,size +.1,d));
+}
+
+
+void main() {
+  vec2 uv = vUv;
+  vec2 uv2 = uv;
+  uv = (gl_FragCoord.xy - uResolution * .5) / uResolution.yy + 0.5;
+  
+  
+	
+	
+ 
+ vec2 coOrd = gl_PointCoord;
+
+ 
+
+   float alpha = 1.;
+
+
+     float t = (uTime *.8) + step(length(uv-.5), .4);
+	
+	 
+ vec3 color = mix( vec3(0., uv.y, 1. ), vec3(1., uv.x, 0. )	, step(length(uv-.5), .4))	;
+	
+	
+
+    coOrd = rotate2D(coOrd, PI + t);
+
+
+        float distanceToCenter = distance(coOrd, vec2(.5));
+        alpha = 1.- step(shape(coOrd, 2., .5).r, .5);
+        
+      
+      
+
+  
+    gl_FragColor = vec4(vec3(color.r, color.g, color.b), alpha);
+  
+  
+	
+
+}
+</script>
+<!-- partial -->
+  <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script><script type="module" src="./script.js"></script>
+
+</body>
+</html>
